@@ -1,4 +1,13 @@
-# Simple D3.js Starter Template
+# Exercises from the book Interactive Data Visualization for the Web by Scott Murray
+
+This is my "scratchpad" repo for work I do following along with Scott Murray's excellent book.
+
+Working through the book encouraged me to create a simple D3.js starter template, which you can find [here](https://github.com/lisawilliams/project-template).
+
+Details on the starter template below, from that repo's README:
+
+
+## Simple D3.js Starter Template
 
 This starter template contains an index.html which links to a local, non-minified D3.js.
 If it's working properly, it will show a "Hello World" page locally using `grunt serve` and on Github Pages once you change your repository settings.
