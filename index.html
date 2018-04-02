@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Page Template</title>
+        <h1>Hello, World!</h1>
+        <script type="text/javascript" src="d3.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            d3.select("body").append("p").text("New paragraph!");
+
+            // Convert rows into...something
+            var rowConverter = function(d) {
+              return{
+                Food: d.Food, // no conversion
+                Deliciousness: parseFloat(d.Deliciousness)
+              };
+            }
+
+            // Use d3.csv function to connect to food.csv
+            d3.csv("food.csv", rowConverter, function(data) {
+              console.log(data);
+            });
+
+            //Load some JSON
+
+            d3.json("book.json", function(json){
+              console.log(json);
+            });
+
+
+        </script>
+    </body>
+</html>
