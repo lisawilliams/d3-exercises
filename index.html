@@ -17,7 +17,17 @@
         				.data(dataset)
         				.enter()
         				.append("p")
-        				.text(function(d) {return d;});
+        				.text(function(d) {
+                  return "I can count up to " + d;
+                })
+                .style("color", function(d){
+                  if( d > 15) {
+                    return "pink";
+                  } else {
+                    return "blue";
+
+                  }
+                });
 
 
             // Convert rows into...something
