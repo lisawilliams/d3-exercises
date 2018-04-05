@@ -24,7 +24,13 @@
           .data(dataset)
           .enter()
           .append("div")
-          .attr("class", "bar");
+          .attr("class", "bar")
+
+          // now, bind the values in the dataset to individual bar heights
+
+          .style("height", function(d){
+            return d + "px";
+          });
 
         		// 	d3.select("body").selectAll("p")
         		// 		.data(dataset)
