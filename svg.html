@@ -16,6 +16,9 @@
 
   <H1>Drawing SVGs with D3.js</H1>
 
+  <a href ="index.html">Random bars with css</a><br>
+  <a href ="barchart.html">Building new bar charts with SVG and D3.js</a><br>
+
   <div class="explainer">
     <p>Instead of using D3 to override the height of a div specified in a CSS class, here we use D3 to draw SVG elements on a page.</p>
   </div>
@@ -64,6 +67,8 @@ circles.attr("cx", function(d, i) {
   <div class = "explainer">
     <p> Let's try doing that using a randomly generated dataset. In fact, let's
     even use randomly generated colors!</p>
+    <p>Every time you reload this page, you will get new circles in new colors. Try it!</p>
+
   </div>
 
   <script>
@@ -141,6 +146,25 @@ circles.attr("cx", function(d, i) {
         .attr("stroke-width", function(d){
           return d/2;
         });
+
+        // Adds labels. Needs tweaking.
+
+        // svg.selectAll("text")
+        //    .data(randomDataset)
+        //    .enter()
+        //    .append("text")
+        //    .text(function(d){
+        //      return d;
+        //    }
+        //    .attr("x", function(d, i){
+        //      return i * (w / randomDataset.length);
+        //    })
+        //    .attr("y", function(d){
+        //      return h - 75;
+        //    })
+        //    .attr("font-size", "14px")
+        //    .attr("fill", "black");
+
 
   </script>
 
