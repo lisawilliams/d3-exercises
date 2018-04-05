@@ -10,7 +10,19 @@
     </head>
     <body>
 
-        <h1>Hello, World!</h1>
+        <h1>Bar Chart using Randomly Generated Dataset</h1>
+
+<div class ="explainer">
+<p> This bar chart will look different each time the page is refreshed,
+  because it uses a function that generates a dataset of 25 random numbers with
+  values 1-30.</p>
+
+  <p> Once we have our random dataset, D3.js overrides the `height` property
+    of our div.bar css style. So if an individual data point is '25,' it will
+    make that bar 25px high (actually, 25px is tiny...so we made it data * 5  for readability). </p>
+
+  </div>
+
         <script type="text/javascript">
 
 
@@ -19,7 +31,7 @@
         var biggerDataset = [25, 7, 5, 26, 11, 44, 3, 22, 66, 5, 18, 12, 44, 32, 76];
         var randomDataset = [];
           for (var i = 0; i < 25; i++) {
-            var newNumber = Math.random() * 30;
+            var newNumber =  Math.floor(Math.random() * 30);
             randomDataset.push(newNumber);
           }
 

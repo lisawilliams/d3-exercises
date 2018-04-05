@@ -5,3 +5,8 @@ div.bar {
   height: 75px;
   background-color: teal;
 }
+
+div.explainer {
+  display: inline-block;
+  width: 200px;
+}
