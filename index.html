@@ -16,14 +16,20 @@
 
         var niceCleanDataset = [ 5, 10, 15, 20, 25 ];
         var realWorldDataset= [25, 7, 5, 26, 11];
+        var biggerDataset = [25, 7, 5, 26, 11, 44, 3, 22, 66, 5, 18, 12, 44, 32, 76];
+        var randomDataset = [];
+          for (var i = 0; i < 25; i++) {
+            var newNumber = Math.random() * 30;
+            randomDataset.push(newNumber);
+          }
 
-        console.log(realWorldDataset);
+        console.log(randomDataset);
         console.log(this);
         console.log('hello');
 
 
         d3.select("body").selectAll("div")
-          .data(realWorldDataset)
+          .data(biggerDataset) // data() will loop through all the items in whatever dataset you pass it as an argument
           .enter()
           .append("div")
           .attr("class", "bar")
