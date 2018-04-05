@@ -58,27 +58,47 @@ var a = Math.random() * 1;
         .attr("width", w)
         .attr("height", h);
 
+// Draw scatterplot
 
-      svg.selectAll("circle")
-         .data(scatterplotDataset)
-         .enter()
-         .append("circle")
-         .attr("cx", function(d){
+      svg.selectAll("circle") // SVG pays attention to circle elements
+         .data(scatterplotDataset) // binds circles to dataset
+         .enter() // gets everything started
+         .append("circle") // appends circles to the page
+         .attr("cx", function(d){  // binds x value to first item in each two-item array
            return d[0];
          })
-         .attr("cy", function(d){
+         .attr("cy", function(d){ // binds y value to 2nd item in each two-item array
            return d[1];
          })
-         .attr("r", function(d){
+         .attr("r", function(d){  // binds the size to the 2nd item in the array and does some math
            return Math.sqrt((h - d[1]/ Math.PI));
          })
-         .attr('fill', function(d){
+         .attr('fill', function(d){ // randomizes color and opacity values of colors
            var r = Math.floor(Math.random() * 255);
            var g = Math.floor(Math.random() * 255);
            var b = Math.floor(Math.random() * 255);
            var a = Math.random() * 1;
            return "rgba(" + r + "," + g + "," + b + "," + a + ")"
          });
+
+// add labels
+
+      svg.selectAll("text")
+         .data(scatterplotDataset)
+         .enter()
+         .append("text")
+         .text(function(d){
+           return d[0] + ", " + d[1];
+         })
+         .attr("x", function(d){
+           return d[0];
+         })
+         .attr("y", function(d){
+           return d[1];
+         })
+         .attr("font-size", "12px")
+         .attr("fill", "red");
+
 
     </script>
 
