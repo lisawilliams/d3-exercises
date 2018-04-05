@@ -3,51 +3,64 @@
     <head>
         <meta charset="utf-8">
         <title>D3 Page Template</title>
-        <h1>Hello, World!</h1>
+
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+
         <script type="text/javascript" src="d3.js"></script>
     </head>
     <body>
+
+        <h1>Hello, World!</h1>
         <script type="text/javascript">
 
 
         var dataset = [ 5, 10, 15, 20, 25 ];
         console.log(dataset);
-
-        			d3.select("body").selectAll("p")
-        				.data(dataset)
-        				.enter()
-        				.append("p")
-        				.text(function(d) {
-                  return "I can count up to " + d;
-                })
-                .style("color", function(d){
-                  if( d > 15) {
-                    return "pink";
-                  } else {
-                    return "blue";
-
-                  }
-                });
+        console.log(this);
+        console.log('hello');
 
 
-            // Convert rows into...something
-            var rowConverter = function(d) {
-              return{
-                Food: d.Food, // no conversion
-                Deliciousness: parseFloat(d.Deliciousness)
-              };
-            }
+        d3.select("body").selectAll("div")
+          .data(dataset)
+          .enter()
+          .append("div")
+          .attr("class", "bar");
 
-            // Use d3.csv function to connect to food.csv
-            d3.csv("food.csv", rowConverter, function(data) {
-              console.log(data);
-            });
-
-            //Load some JSON
-
-            d3.json("book.json", function(json){
-              console.log(json);
-            });
+        		// 	d3.select("body").selectAll("p")
+        		// 		.data(dataset)
+        		// 		.enter()
+        		// 		.append("p")
+        		// 		.text(function(d) {
+            //       return "I can count up to " + d;
+            //     })
+            //     .style("color", function(d){
+            //       if( d > 15) {
+            //         return "pink";
+            //       } else {
+            //         return "blue";
+            //
+            //       }
+            //     });
+            //
+            //
+            // // Convert rows into...something
+            // var rowConverter = function(d) {
+            //   return{
+            //     Food: d.Food, // no conversion
+            //     Deliciousness: parseFloat(d.Deliciousness)
+            //   };
+            // }
+            //
+            // // Use d3.csv function to connect to food.csv
+            // d3.csv("food.csv", rowConverter, function(data) {
+            //   console.log(data);
+            // });
+            //
+            // //Load some JSON
+            //
+            // d3.json("book.json", function(json){
+            //   console.log(json);
+            // });
 
 
         </script>
