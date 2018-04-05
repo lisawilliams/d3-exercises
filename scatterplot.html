@@ -37,8 +37,19 @@
         [220, 88],
       ];
 
+// setting the height and width of the SVG 'box' we will be putting our dataviz in
+
       var w = 500;
       var h = 100;
+
+// To make things different, random colors if we wish
+// I want to add random colors to our circles, just like their
+// size is random when we pass randomDataset to our code below.
+var r = Math.floor(Math.random() * 255);
+var g = Math.floor(Math.random() * 255);
+var b = Math.floor(Math.random() * 255);
+var a = Math.random() * 1;
+
 
   // let's draw an SVG to contain all our shapes
   // with a width of 500 px and a height of 50px
@@ -58,7 +69,16 @@
          .attr("cy", function(d){
            return d[1];
          })
-         .attr("r", 5);
+         .attr("r", function(d){
+           return Math.sqrt((h - d[1]/ Math.PI));
+         })
+         .attr('fill', function(d){
+           var r = Math.floor(Math.random() * 255);
+           var g = Math.floor(Math.random() * 255);
+           var b = Math.floor(Math.random() * 255);
+           var a = Math.random() * 1;
+           return "rgba(" + r + "," + g + "," + b + "," + a + ")"
+         });
 
     </script>
 
