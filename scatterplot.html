@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>D3 Scatterplot</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="d3.js"></script>
+  </head>
+  <body>
+
+    <h1>Building Scatterplots with D3.js</h1>
+    <div class ="explainer">
+      <p>Here we will reuse our code, but bind our data to a circle element to make a scatterplot.</p>
+    </div>
+
+    <script>
+
+    <script>
+      var niceCleanDataset = [5, 10, 15, 20, 25];
+      var realWorldDataset = [25, 7, 5, 26, 11];
+      var biggerDataset = [25, 7, 5, 26, 11, 44, 3, 22, 66, 5, 18, 12, 44, 32, 76];
+      var randomDataset = [];
+      for (var i = 0; i < 25; i++) {
+        var newNumber = Math.floor(Math.random() * 30);
+        randomDataset.push(newNumber);
+      }
+
+      var w = 500;
+      var h = 50;
+
+  // let's draw an SVG to contain all our shapes
+  // with a width of 500 px and a height of 50px
+      var svg = d3.select("body")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
+
+
+    </script>
+
+  </body>
+</html>
