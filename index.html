@@ -14,14 +14,16 @@
         <script type="text/javascript">
 
 
-        var dataset = [ 5, 10, 15, 20, 25 ];
-        console.log(dataset);
+        var niceCleanDataset = [ 5, 10, 15, 20, 25 ];
+        var realWorldDataset= [25, 7, 5, 26, 11];
+
+        console.log(realWorldDataset);
         console.log(this);
         console.log('hello');
 
 
         d3.select("body").selectAll("div")
-          .data(dataset)
+          .data(realWorldDataset)
           .enter()
           .append("div")
           .attr("class", "bar")
@@ -29,7 +31,8 @@
           // now, bind the values in the dataset to individual bar heights
 
           .style("height", function(d){
-            return d + "px";
+            var barHeight = d * 5;
+            return barHeight + "px";
           });
 
         		// 	d3.select("body").selectAll("p")
