@@ -14,3 +14,15 @@ div.explainer {
 body {
   font-family: 'Roboto Condensed', sans-serif;
 }
+
+/***************************
+HEADLINES
+***************************/
+
+h1 {
+  margin-top: 50px;
+}
+
+.first-h1 {
+  margin-top: 100px;
+}
