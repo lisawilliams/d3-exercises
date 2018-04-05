@@ -99,7 +99,11 @@ var a = Math.random() * 1;
          .attr("font-size", "12px")
          .attr("fill", "red");
 
+  // Add scales to our scatterplot
 
+  var scale = d3.scaleLinear()
+                .domain([100, 500])
+                .range([10, 350]);
     </script>
 
   </body>
