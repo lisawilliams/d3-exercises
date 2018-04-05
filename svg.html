@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Drawing SVGs with D3.js</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <script type="text/javascript" src="d3.js"></script>
+
+</head>
+
+<body>
+
+
+
+  <H1>Drawing SVGs with D3.js</H1>
+
+  <div class="explainer">
+    <p>Instead of using D3 to override the height of a div specified in a CSS class, here we use D3 to draw SVG elements on a page.</p>
+  </div>
+
+  <script>
+    var niceCleanDataset = [5, 10, 15, 20, 25];
+    var realWorldDataset = [25, 7, 5, 26, 11];
+    var biggerDataset = [25, 7, 5, 26, 11, 44, 3, 22, 66, 5, 18, 12, 44, 32, 76];
+    var randomDataset = [];
+    for (var i = 0; i < 25; i++) {
+      var newNumber = Math.floor(Math.random() * 30);
+      randomDataset.push(newNumber);
+    }
+
+    var w = 500;
+    var h = 50;
+
+// let's draw an SVG to contain all our shapes
+// with a width of 500 px and a height of 50px
+    var svg = d3.select("body")
+      .append("svg")
+      .attr("width", w)
+      .attr("height", h);
+
+// let's put some circles on our background SVG shape
+
+var circles = svg.selectAll("circle")
+                .data(niceCleanDataset)
+                .enter()
+                .append("circle");
+
+// we defined some circles, and bound them to a dataset, but they need
+// to have sizes and placement on the page so let's do that
+
+circles.attr("cx", function(d, i) {
+    return (i * 50) + 25;
+})
+
+        .attr("cy", h/2)
+        .attr("r", function(d){
+          return d;
+        });
+
+  </script>
+<br><br><br><br>
+  <div class = "explainer">
+    <p> Let's try doing that using a randomly generated dataset. In fact, let's
+    even use randomly generated colors!</p>
+  </div>
+
+  <script>
+    var niceCleanDataset = [5, 10, 15, 20, 25];
+    var realWorldDataset = [25, 7, 5, 26, 11];
+    var biggerDataset = [25, 7, 5, 26, 11, 44, 3, 22, 66, 5, 18, 12, 44, 32, 76];
+    var randomDataset = [];
+    for (var i = 0; i < 10; i++) {
+      var newNumber = Math.floor(Math.random() * 30);
+      randomDataset.push(newNumber);
+    }
+
+// I want to add random colors to our circles, just like their
+// size is random when we pass randomDataset to our code below.
+
+var r = Math.floor(Math.random() * 255);
+console.log(r);
+var g = Math.floor(Math.random() * 255);
+console.log(g);
+var b = Math.floor(Math.random() * 255);
+console.log(b);
+var a = Math.random() * 1;
+console.log(a);
+
+// The below doesn't work although I would like it to
+// var rgba = (r) + "," + (g) + "," + (b) + "," (a);
+// console.log(rgba);
+
+
+
+// let's set the height and width of the div we will be putting stuff in
+
+    var w = 500;
+    var h = 100;
+
+// let's draw an SVG to contain all our shapes
+// with a width of 500 px and a height of 50px
+    var svg = d3.select("body")
+      .append("svg")
+      .attr("width", w)
+      .attr("height", h);
+
+// let's put some circles on our background SVG shape
+
+var circles = svg.selectAll("circle")
+                .data(randomDataset)
+                .enter()
+                .append("circle");
+
+// we defined some circles, and bound them to a dataset, but they need
+// to have sizes and placement on the page so let's do that
+
+circles.attr("cx", function(d, i) {
+    return (i * 50) + 25;
+})
+
+        .attr("cy", h/2)
+        .attr("r", function(d){
+          return d;
+        })
+        .attr("fill", "rgba(" + r + "," + g + "," + b + "," + a + ")")
+        .attr("stroke", "rgba(" + r + "," + g + "," + b + "," + a + ")")
+        .attr("stroke-width", function(d){
+          return d/2;
+        });
+
+  </script>
+
+
+
+
+</body>
+
+</html>

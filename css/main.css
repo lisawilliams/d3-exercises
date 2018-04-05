@@ -10,3 +10,7 @@ div.explainer {
   display: inline-block;
   width: 200px;
 }
+
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+}
