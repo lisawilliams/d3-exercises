@@ -78,7 +78,7 @@ circles.attr("cx", function(d, i) {
 
 // I want to add random colors to our circles, just like their
 // size is random when we pass randomDataset to our code below.
-
+console.log('this is from up top')
 var r = Math.floor(Math.random() * 255);
 console.log(r);
 var g = Math.floor(Math.random() * 255);
@@ -124,7 +124,19 @@ circles.attr("cx", function(d, i) {
         .attr("r", function(d){
           return d;
         })
-        .attr("fill", "rgba(" + r + "," + g + "," + b + "," + a + ")")
+        .attr("fill", function(d){
+          console.log('this is from the function')
+          var r = Math.floor(Math.random() * 255);
+          console.log(r);
+          var g = Math.floor(Math.random() * 255);
+          console.log(g);
+          var b = Math.floor(Math.random() * 255);
+          console.log(b);
+          var a = Math.random() * 1;
+          console.log(a);
+          return "rgba(" + r + "," + g + "," + b + "," + a + ")"
+        })
+
         .attr("stroke", "rgba(" + r + "," + g + "," + b + "," + a + ")")
         .attr("stroke-width", function(d){
           return d/2;
