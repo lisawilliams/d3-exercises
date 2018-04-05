@@ -47,7 +47,7 @@ console.log(rgba);
 
 // It's always a good time to declare some variables
 var w = 500;
-var h = 100;
+var h = 150;
 
 // let's draw an SVG to contain all our shapes
 // with a width of 500 px and a height of 50px
@@ -75,6 +75,25 @@ svg.selectAll('rect')
   .attr('fill', rgba)
   .attr('stroke', "#000")
   .attr('stroke-width', 1);
+
+
+  // let's add labels
+
+  svg.selectAll("text")
+     .data(randomDataset)
+     .enter()
+     .append("text")
+     .text(function(d){
+       return d;
+     })
+     .attr("x", function(d, i){
+       return i * (w / randomDataset.length) + 5;
+     })
+     .attr("y", function(d){
+       return h - (d * 4) + 15;
+     })
+     .attr("font-size", "11px")
+     .attr("fill", "white")
 
 </script>
 
