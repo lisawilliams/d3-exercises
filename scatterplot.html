@@ -111,8 +111,21 @@ var yScale = d3.scaleLinear()
                .domain([0, d3.max(scatterplotDataset, function(d){
                  return d[1];
                })])
-               .range([0, h]);
+               .range([0, h])
 
+               // show me the highest individual data point in the dataset
+               console.log(d3.max(scatterplotDataset, function(d){return d[0]})); // returns 480
+               // show me the lowest individual data point in the dataset
+               console.log(d3.min(scatterplotDataset, function(d){return d[0]})); // returns 5
+               // Both of the above will return different values if the dataset
+               // changes in a way where the highest or lowest values change
+
+               // Just want to see if this works
+               console.log(d3.mean(scatterplotDataset, function(d){return d[0]}));
+               // It does, returns the mean as 238
+
+               console.log(d3.median(scatterplotDataset, function(d){return d[0]}));
+               // Returns median of 235
 
 
     </script>
