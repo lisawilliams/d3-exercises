@@ -99,6 +99,13 @@ console.log(d3.median(scatterplotDataset, function(d){return d[0]}));
         .attr("width", w)
         .attr("height", h);
 
+// Draw axes (scales do not create the visual of the axis)
+// The axis is a visual representation of the scale defined above
+
+var xAxis = d3.axisBottom()
+              .scale(xScale);
+var yAxis = d3.axisRight()
+              .scale(yScale);
 
 // Draw scatterplot
 
@@ -141,7 +148,12 @@ console.log(d3.median(scatterplotDataset, function(d){return d[0]}));
          .attr("font-size", "12px")
          .attr("fill", "red");
 
+// Append axis to svg
 
+svg.append("g")
+   .call(xAxis);
+svg.append("g")
+   .call(yAxis);
 
 
     </script>
