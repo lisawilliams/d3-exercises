@@ -151,6 +151,8 @@ var yAxis = d3.axisRight()
 // Append axis to svg
 
 svg.append("g")
+   .attr("class", "axis")
+   .attr("transform", "translate(0, "+ (h - padding) + ")")
    .call(xAxis);
 svg.append("g")
    .call(yAxis);
