@@ -20,7 +20,7 @@
 
       var w = 500;
       var h = 300;
-      var padding = 20;
+      var padding = 30;
 
 // datasets
 var niceCleanDataset = [5, 10, 15, 20, 25];
@@ -45,6 +45,16 @@ var scatterplotDataset = [
   [600, 150],
 ];
 
+var randomScatterplotDataset = [];
+var numDataPoints = 50;
+var xRange = Math.random() * 1000;
+var yRange = Math.random() * 1000;
+  for (var i = 0; i < numDataPoints; i++){
+    var newNumber1 = Math.floor(Math.random() * xRange);
+    var newNumber2 = Math.floor(Math.random() * yRange);
+    randomScatterplotDataset.push([newNumber1, newNumber2]);
+  }
+
 // colors
 // To make things different, random colors if we wish
 // I want to add random colors to our circles, just like their
@@ -57,13 +67,13 @@ var a = Math.random() * 1;
 
 // Create scale functions
 var xScale = d3.scaleLinear()
-             .domain([0, d3.max(scatterplotDataset, function(d){
+             .domain([0, d3.max(randomScatterplotDataset, function(d){
                return d[0];
              })])
              .range([padding, w - padding * 2]);
 
 var yScale = d3.scaleLinear()
-             .domain([0, d3.max(scatterplotDataset, function(d){
+             .domain([0, d3.max(randomScatterplotDataset, function(d){
                return d[1];
              })])
              .range([h - padding, padding * 2]);
@@ -75,21 +85,21 @@ var yScale = d3.scaleLinear()
 //                .range([2, 5]);
 
 var aScale = d3.scaleSqrt()
-								 .domain([0, d3.max(scatterplotDataset, function(d) { return d[1]; })])
+								 .domain([0, d3.max(randomScatterplotDataset, function(d) { return d[1]; })])
 								 .range([0, 10]);
 
 // show me the highest individual data point in the dataset
-    console.log(d3.max(scatterplotDataset, function(d){return d[0]})); // returns 480
+    console.log(d3.max(randomScatterplotDataset, function(d){return d[0]})); // returns 480
 // show me the lowest individual data point in the dataset
-    console.log(d3.min(scatterplotDataset, function(d){return d[0]})); // returns 5
+    console.log(d3.min(randomScatterplotDataset, function(d){return d[0]})); // returns 5
 // Both of the above will return different values if the dataset
 // changes in a way where the highest or lowest values change
 
 // Just want to see if this works
-console.log(d3.mean(scatterplotDataset, function(d){return d[0]}));
+console.log(d3.mean(randomScatterplotDataset, function(d){return d[0]}));
 // It does, returns the mean as 238
 
-console.log(d3.median(scatterplotDataset, function(d){return d[0]}));
+console.log(d3.median(randomScatterplotDataset, function(d){return d[0]}));
 // Returns median of 235
 
 // let's draw an SVG to contain all our shapes
@@ -103,14 +113,16 @@ console.log(d3.median(scatterplotDataset, function(d){return d[0]}));
 // The axis is a visual representation of the scale defined above
 
 var xAxis = d3.axisBottom()
-              .scale(xScale);
-var yAxis = d3.axisRight()
-              .scale(yScale);
+              .scale(xScale)
+              .ticks(5);
+var yAxis = d3.axisLeft()
+              .scale(yScale)
+              .ticks(5);
 
 // Draw scatterplot
 
       svg.selectAll("circle") // SVG pays attention to circle elements
-         .data(scatterplotDataset) // binds circles to dataset
+         .data(randomScatterplotDataset) // binds circles to dataset
          .enter() // gets everything started
          .append("circle") // appends circles to the page
          .attr("cx", function(d){  // binds x value to first item in each two-item array
@@ -133,7 +145,7 @@ var yAxis = d3.axisRight()
 // add labels
 
       svg.selectAll("text")
-         .data(scatterplotDataset)
+         .data(randomScatterplotDataset)
          .enter()
          .append("text")
          .text(function(d){
@@ -156,6 +168,7 @@ svg.append("g")
    .call(xAxis);
 svg.append("g")
    .attr("class", "axis")
+   .attr("transform", "translate(" + padding + ",0)")
    .call(yAxis);
 
 
