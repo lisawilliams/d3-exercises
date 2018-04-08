@@ -101,9 +101,20 @@ var a = Math.random() * 1;
 
   // Add scales to our scatterplot
 
-  var scale = d3.scaleLinear()
-                .domain([100, 500])
-                .range([10, 350]);
+var xScale = d3.scaleLinear()
+               .domain([0, d3.max(scatterplotDataset, function(d){
+                 return d[0];
+               })])
+               .range([0, w]);
+
+var yScale = d3.scaleLinear()
+               .domain([0, d3.max(scatterplotDataset, function(d){
+                 return d[1];
+               })])
+               .range([0, h]);
+
+
+
     </script>
 
   </body>
