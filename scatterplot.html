@@ -16,32 +16,36 @@
 
     <script>
 
-      var niceCleanDataset = [5, 10, 15, 20, 25];
-      var realWorldDataset = [25, 7, 5, 26, 11];
-      var biggerDataset = [25, 7, 5, 26, 11, 44, 3, 22, 66, 5, 18, 12, 44, 32, 76];
-      var randomDataset = [];
-      for (var i = 0; i < 25; i++) {
-        var newNumber = Math.floor(Math.random() * 30);
-        randomDataset.push(newNumber);
-      }
-      var scatterplotDataset = [
-        [ 5, 20 ],
-        [ 480, 90 ],
-        [250, 50],
-        [100, 33],
-        [330, 95],
-        [410, 12],
-        [475, 44],
-        [25, 67],
-        [85, 21],
-        [220, 88],
-      ];
-
 // setting the height and width of the SVG 'box' we will be putting our dataviz in
 
       var w = 500;
-      var h = 100;
+      var h = 300;
+      var padding = 20;
 
+// datasets
+var niceCleanDataset = [5, 10, 15, 20, 25];
+var realWorldDataset = [25, 7, 5, 26, 11];
+var biggerDataset = [25, 7, 5, 26, 11, 44, 3, 22, 66, 5, 18, 12, 44, 32, 76];
+var randomDataset = [];
+for (var i = 0; i < 25; i++) {
+  var newNumber = Math.floor(Math.random() * 30);
+  randomDataset.push(newNumber);
+}
+var scatterplotDataset = [
+  [ 5, 20 ],
+  [ 480, 90 ],
+  [250, 50],
+  [100, 33],
+  [330, 95],
+  [410, 12],
+  [475, 44],
+  [25, 67],
+  [85, 21],
+  [220, 88],
+  [600, 150],
+];
+
+// colors
 // To make things different, random colors if we wish
 // I want to add random colors to our circles, just like their
 // size is random when we pass randomDataset to our code below.
@@ -51,12 +55,46 @@ var b = Math.floor(Math.random() * 255);
 var a = Math.random() * 1;
 
 
-  // let's draw an SVG to contain all our shapes
-  // with a width of 500 px and a height of 50px
+// Create scale functions
+var xScale = d3.scaleLinear()
+             .domain([0, d3.max(scatterplotDataset, function(d){
+               return d[0];
+             })])
+             .range([padding, w - padding * 2]);
+
+var yScale = d3.scaleLinear()
+             .domain([0, d3.max(scatterplotDataset, function(d){
+               return d[1];
+             })])
+             .range([h - padding, padding * 2]);
+
+var rScale = d3.scaleLinear()
+               .domain([0, d3.max(scatterplotDataset, function(d){
+                 return d[1];
+               })])
+               .range([2, 5]);
+
+// show me the highest individual data point in the dataset
+    console.log(d3.max(scatterplotDataset, function(d){return d[0]})); // returns 480
+// show me the lowest individual data point in the dataset
+    console.log(d3.min(scatterplotDataset, function(d){return d[0]})); // returns 5
+// Both of the above will return different values if the dataset
+// changes in a way where the highest or lowest values change
+
+// Just want to see if this works
+console.log(d3.mean(scatterplotDataset, function(d){return d[0]}));
+// It does, returns the mean as 238
+
+console.log(d3.median(scatterplotDataset, function(d){return d[0]}));
+// Returns median of 235
+
+// let's draw an SVG to contain all our shapes
+// with a width of 500 px and a height of 50px
       var svg = d3.select("body")
         .append("svg")
         .attr("width", w)
         .attr("height", h);
+
 
 // Draw scatterplot
 
@@ -65,13 +103,13 @@ var a = Math.random() * 1;
          .enter() // gets everything started
          .append("circle") // appends circles to the page
          .attr("cx", function(d){  // binds x value to first item in each two-item array
-           return d[0];
+           return xScale(d[0]);
          })
          .attr("cy", function(d){ // binds y value to 2nd item in each two-item array
-           return d[1];
+           return yScale(d[1]);
          })
          .attr("r", function(d){  // binds the size to the 2nd item in the array and does some math
-           return Math.sqrt((h - d[1]/ Math.PI));
+           return rScale(d[1]);
          })
          .attr('fill', function(d){ // randomizes color and opacity values of colors
            var r = Math.floor(Math.random() * 255);
@@ -91,41 +129,15 @@ var a = Math.random() * 1;
            return d[0] + ", " + d[1];
          })
          .attr("x", function(d){
-           return d[0];
+           return xScale(d[0]);
          })
          .attr("y", function(d){
-           return d[1];
+           return yScale(d[1]);
          })
          .attr("font-size", "12px")
          .attr("fill", "red");
 
-  // Add scales to our scatterplot
 
-var xScale = d3.scaleLinear()
-               .domain([0, d3.max(scatterplotDataset, function(d){
-                 return d[0];
-               })])
-               .range([0, w]);
-
-var yScale = d3.scaleLinear()
-               .domain([0, d3.max(scatterplotDataset, function(d){
-                 return d[1];
-               })])
-               .range([0, h])
-
-               // show me the highest individual data point in the dataset
-               console.log(d3.max(scatterplotDataset, function(d){return d[0]})); // returns 480
-               // show me the lowest individual data point in the dataset
-               console.log(d3.min(scatterplotDataset, function(d){return d[0]})); // returns 5
-               // Both of the above will return different values if the dataset
-               // changes in a way where the highest or lowest values change
-
-               // Just want to see if this works
-               console.log(d3.mean(scatterplotDataset, function(d){return d[0]}));
-               // It does, returns the mean as 238
-
-               console.log(d3.median(scatterplotDataset, function(d){return d[0]}));
-               // Returns median of 235
 
 
     </script>
