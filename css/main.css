@@ -15,6 +15,18 @@ body {
   font-family: 'Roboto Condensed', sans-serif;
 }
 
+.axis path,
+.axis line {
+  stroke: DarkSlateGray;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font-weight: bold;
+  font-size: 14ps;
+  fill: DarkSlateGray;
+}
+
 /***************************
 HEADLINES
 ***************************/
