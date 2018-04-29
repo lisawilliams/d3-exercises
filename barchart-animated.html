@@ -4,12 +4,19 @@
 <head>
   <meta charset="utf-8">
   <title>animated barchart</title>
-  <!-- <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/main.css"> -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
   <script type="text/javascript" src="../d3.js"></script>
   <style type ="text/css"></style>
 </head>
 <body>
+
+<H1>First animation in D3</H1>
+
+  <div class ="explainer">
+    <p>Click this text to update the chart with new data values.</p>
+  </div><Br>
+
 <script type= "text/javascript">
 
 // It's always a good time to declare some variables
@@ -69,11 +76,30 @@ svg.selectAll("rect")
          return xScale(i) + xScale.bandwidth() / 2;
       })
       .attr("y", function(d) {
-         return h - yScale(d) + 14;
+         return h - yScale(d);
       })
       .attr("font-family", "sans-serif")
       .attr("font-size", "11px")
       .attr("fill", "white");
+
+// use onClick to activate a function
+
+d3.select("p")
+  .on("click", function() {
+    dataset = [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+
+    // update all rects
+
+    svg.selectAll("rect")
+       .data(dataset)
+       .attr("y", function(d){
+         return h - yScale(d);
+       })
+       .attr("height", function(d){
+         return yScale(d);
+       });
+  });
+
 
 
 </script>
