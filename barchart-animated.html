@@ -93,6 +93,7 @@ d3.select("p")
     svg.selectAll("rect")
        .data(dataset)
        .transition()
+       .duration(3000)
        .attr("y", function(d){
          return h - yScale(d);
        })
