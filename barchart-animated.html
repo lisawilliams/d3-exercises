@@ -76,7 +76,7 @@ svg.selectAll("rect")
          return xScale(i) + xScale.bandwidth() / 2;
       })
       .attr("y", function(d) {
-         return h - yScale(d);
+         return h - yScale(d) + 14;
       })
       .attr("font-family", "sans-serif")
       .attr("font-size", "11px")
@@ -92,6 +92,7 @@ d3.select("p")
 
     svg.selectAll("rect")
        .data(dataset)
+       .transition()
        .attr("y", function(d){
          return h - yScale(d);
        })
