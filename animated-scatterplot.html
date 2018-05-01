@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Animated Scatterplot</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="d3.js"></script>
+  </head>
+  <body>
+
+    <h1>Animated Scatterplots with D3.js</h1>
+    <div class ="explainer">
+      <p>Clicking this code will trigger an event that updates the data in the scatterplot. </p>
+    </div><br>
+
+    <script>
+
+// setting the height and width of the SVG 'box' we will be putting our dataviz in
+
+      var w = 500;
+      var h = 300;
+      var padding = 30;
+
+// datasets
+var niceCleanDataset = [5, 10, 15, 20, 25];
+var realWorldDataset = [25, 7, 5, 26, 11];
+var biggerDataset = [25, 7, 5, 26, 11, 44, 3, 22, 66, 5, 18, 12, 44, 32, 76];
+var randomDataset = [];
+for (var i = 0; i < 25; i++) {
+  var newNumber = Math.floor(Math.random() * 30);
+  randomDataset.push(newNumber);
+}
+var scatterplotDataset = [
+  [ 5, 20 ],
+  [ 480, 90 ],
+  [250, 50],
+  [100, 33],
+  [330, 95],
+  [410, 12],
+  [475, 44],
+  [25, 67],
+  [85, 21],
+  [220, 88],
+  [600, 150],
+];
+
+var randomScatterplotDataset = [];
+var numDataPoints = 30;
+var xRange = Math.random() * 1000;
+var yRange = Math.random() * 1000;
+  for (var i = 0; i < numDataPoints; i++){
+    var newNumber1 = Math.floor(Math.random() * xRange);
+    var newNumber2 = Math.floor(Math.random() * yRange);
+    randomScatterplotDataset.push([newNumber1, newNumber2]);
+  }
+
+// colors
+// To make things different, random colors if we wish
+// I want to add random colors to our circles, just like their
+// size is random when we pass randomDataset to our code below.
+var r = Math.floor(Math.random() * 255);
+var g = Math.floor(Math.random() * 255);
+var b = Math.floor(Math.random() * 255);
+var a = Math.random() * 1;
+
+
+// Create scale functions
+var xScale = d3.scaleLinear()
+             .domain([0, d3.max(randomScatterplotDataset, function(d){
+               return d[0];
+             })])
+             .range([padding, w - padding * 2]);
+
+var yScale = d3.scaleLinear()
+             .domain([0, d3.max(randomScatterplotDataset, function(d){
+               return d[1];
+             })])
+             .range([h - padding, padding * 2]);
+
+// var rScale = d3.scaleLinear()
+//                .domain([0, d3.max(scatterplotDataset, function(d){
+//                  return d[1];
+//                })])
+//                .range([2, 5]);
+
+var aScale = d3.scaleSqrt()
+								 .domain([0, d3.max(randomScatterplotDataset, function(d) { return d[1]; })])
+								 .range([0, 10]);
+
+// show me the highest individual data point in the dataset
+    console.log(d3.max(randomScatterplotDataset, function(d){return d[0]})); // returns 480
+// show me the lowest individual data point in the dataset
+    console.log(d3.min(randomScatterplotDataset, function(d){return d[0]})); // returns 5
+// Both of the above will return different values if the dataset
+// changes in a way where the highest or lowest values change
+
+// Just want to see if this works
+console.log(d3.mean(randomScatterplotDataset, function(d){return d[0]}));
+// It does, returns the mean as 238
+
+console.log(d3.median(randomScatterplotDataset, function(d){return d[0]}));
+// Returns median of 235
+
+// let's draw an SVG to contain all our shapes
+// with a width of 500 px and a height of 50px
+      var svg = d3.select("body")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
+
+// Draw axes (scales do not create the visual of the axis)
+// The axis is a visual representation of the scale defined above
+
+var xAxis = d3.axisBottom()
+              .scale(xScale)
+              .ticks(5);
+var yAxis = d3.axisLeft()
+              .scale(yScale)
+              .ticks(5);
+
+// Draw scatterplot
+
+      svg.selectAll("circle") // SVG pays attention to circle elements
+         .data(randomScatterplotDataset) // binds circles to dataset
+         .enter() // gets everything started
+         .append("circle") // appends circles to the page
+         .attr("cx", function(d){  // binds x value to first item in each two-item array
+           return xScale(d[0]);
+         })
+         .attr("cy", function(d){ // binds y value to 2nd item in each two-item array
+           return yScale(d[1]);
+         })
+         .attr("r", function(d){  // binds the size to the 2nd item in the array and does some math
+           return aScale(d[1]);
+         })
+         .attr('fill', function(d){ // randomizes color and opacity values of colors
+           var r = Math.floor(Math.random() * 255);
+           var g = Math.floor(Math.random() * 255);
+           var b = Math.floor(Math.random() * 255);
+           var a = Math.random() * 1;
+           return "rgba(" + r + "," + g + "," + b + "," + a + ")"
+         });
+
+// add labels
+
+      svg.selectAll("text")
+         .data(randomScatterplotDataset)
+         .enter()
+         .append("text")
+         .text(function(d){
+           return d[0] + ", " + d[1];
+         })
+         .attr("x", function(d){
+           return xScale(d[0]);
+         })
+         .attr("y", function(d){
+           return yScale(d[1]);
+         })
+         .attr("font-size", "12px")
+         .attr("fill", "red");
+
+// Append axis to svg
+
+svg.append("g")
+   .attr("class", "axis")
+   .attr("transform", "translate(0, "+ (h - padding) + ")")
+   .call(xAxis);
+svg.append("g")
+   .attr("class", "axis")
+   .attr("transform", "translate(" + padding + ",0)")
+   .call(yAxis);
+
+   // update the scatterplot's data
+
+   d3.select("p")
+     .on("click", function() {
+
+       var randomDataset = [];
+       for (var i = 0; i < 25; i++) {
+         var newNumber = Math.floor(Math.random() * 30);
+         randomDataset.push(newNumber);
+       }
+
+       svg.selectAll("circle")
+          .data(randomDataset)
+          .transition()
+          .delay(500)
+          .duration(5000)
+          .ease(d3.easeBounceOut)
+          .attr("cx", function(d){  // binds x value to first item in each two-item array
+            return xScale(d[0]);
+          })
+          .attr("cy", function(d){ // binds y value to 2nd item in each two-item array
+            return yScale(d[1]);
+          })
+          .attr("r", function(d){  // binds the size to the 2nd item in the array and does some math
+            return aScale(d[1]);
+          })
+          .attr('fill', function(d){ // randomizes color and opacity values of colors
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            var a = Math.random() * 1;
+            return "rgba(" + r + "," + g + "," + b + "," + a + ")"
+          });
+
+        });
+
+    </script>
+
+  </body>
+</html>
