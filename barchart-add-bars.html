@@ -2,9 +2,9 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>D3: Demo of bounce easing</title>
-  <script type="text/javascript" src="d3.js"></script>
-			<style type="text/css">
+		<title>D3: A chart transition with controlled duration (labels, too!)</title>
+		<script type="text/javascript" src="../d3.js"></script>
+		<style type="text/css">
 			/* No style rules here yet */
 		</style>
 	</head>
@@ -81,32 +81,30 @@
 			d3.select("p")
 				.on("click", function() {
 
-					//New values for dataset
-					dataset = [ 11, 12, 15, 20, 18, 17, 16, 18, 23, 25,
-								5, 10, 13, 19, 21, 25, 22, 18, 15, 13 ];
+						var maxValue = 25;
+						var newNumber = Math.floor(Math.random() * maxValue);
+						dataset.push(newNumber);
 
-					//Update all rects
-					svg.selectAll("rect")
-					   .data(dataset)
-					   .transition()
-					   .duration(2000)
-					   .ease(d3.easeBounceOut)
-					   .attr("y", function(d) {
-					   		return h - yScale(d);
-					   })
-					   .attr("height", function(d) {
-					   		return yScale(d);
-					   })
-					   .attr("fill", function(d) {
-							return "rgb(0, 0, " + Math.round(d * 10) + ")";
-					   });
+						xScale.domain(d3.range(dataset.length));
+						yScale.domain([0, d3.max(dataset)]);		//Recalibrate the y scale domain, given the new max value in dataset
+
+						var bars = svg.selectAll("rect")
+											    .data(dataset);
+
+						bars.enter()
+						    .append("rect")
+								.attr("x", w)
+								.attr("y", function(d){
+									return h - yScale(d);
+								})
+
+
 
 					//Update all labels
 					svg.selectAll("text")
 					   .data(dataset)
-					   .transition()
-					   .duration(2000)
-					   .ease(d3.easeBounceOut)
+					   .transition()								// <-- Now with
+					   .duration(5000)								//     label transitions!
 					   .text(function(d) {
 					   		return d;
 					   })
